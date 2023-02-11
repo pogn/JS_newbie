@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>pogn messenger</title>
+        <link rel="stylesheet" href="./messenger.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"> 
+    </head>
+    <body>
+        <h1 class="title">pogn messenger</h1>
+        <div class="grouplist">
+            <div class="group">
+                <span> 가족 </span>
+                <button type="button" style="float:right;"><img id="member1_img" src="./123.jpg" width="50px"></img></button>
+            </div>
+            <div id="member1" style="display:none">
+                <p class="member">아빠</p>
+                <p class="member">엄마</p>
+                <p class="member">동생</p>
+            </div>
+        </div>  
+        <div class="grouplist">
+            <div class="group">
+                <span> 회사 </span>
+                <button type="button" style="float:right;"><img id="member2_img" src="./123.jpg" width="50px"></img></button>
+            </div>
+            <div id="member2" style="display:none">
+                <p class="member">책임</p>
+                <p class="member">선임</p>
+                <p class="member">사원</p>
+            </div>
+        </div>  
+        <div class="grouplist">
+            <div class="group">
+                <span> 친구 </span>
+                <button type="button" style="float:right;"><img id="member3_img" src="./321.jpg" width="50px"></img></button>
+            </div>
+            <div id="member3" style="display:none">
+                <p class="member">로제</p>
+                <p class="member">제니</p>
+                <p class="member">리사</p>
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        // const [a, b] = [1, [2, 3, 4]];
+        // a = 1;
+        // b = [2, 3, 4];
+        // const { id } = event.target; // const id = event.target.id;
+
+        // MAP을 활용한 O(1) 검색
+        const imageIdMap = {
+            'member1_img': 'member1',
+            'member2_img': 'member2',
+            'member3_img': 'member3',
+        };
+
+        const handleClick = (event) => {
+            const { id } = event.target;
+            const curImageId = imageIdMap[id];
+            if(!curImageId) return; // early return이 개발의 '생명'이다.
+
+            const image = document.querySelector(`#${curImageId}`);
+            const targetImage = document.querySelector(`#${id}`);
+            if(!image || !targetImage) {
+                throw new Error('NOT FOUND IMAGE DOM');
+            }
+            const { style: { display }} = image;
+
+            if(display !== 'none' && display !== '') return;
+            const isDisplayNone = display === 'none';
+
+            console.log(id, curImageId, isDisplayNone);
+            image.style.display = isDisplayNone ? '' : 'none';
+            targetImage.src = isDisplayNone ? "./123.jpg" : "./321.jpg";
+        };
+
+        document.querySelector("#member1_img").addEventListener("click", handleClick);
+        document.querySelector("#member2_img").addEventListener("click", handleClick);
+        document.querySelector("#member3_img").addEventListener("click", handleClick);
+        //document.querySelector("#member1_img").onclick = () => {alert()};  
+    </script>
+</html>
